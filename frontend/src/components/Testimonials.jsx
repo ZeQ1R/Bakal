@@ -26,11 +26,16 @@ const Testimonials = () => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 6000);
+    const nextSlide = () => {
+      if (isAnimating) return;
+      setIsAnimating(true);
+      setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+      setTimeout(() => setIsAnimating(false), 600);
+    };
+    const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
-  }, [currentIndex]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, isAnimating]);
 
   const handlePrev = () => {
     if (isAnimating) return;
