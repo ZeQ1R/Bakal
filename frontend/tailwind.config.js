@@ -7,12 +7,20 @@ module.exports = {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			serif: ['Cormorant Garamond', 'Times New Roman', 'serif'],
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+  			black: '#0a0a0a',
+  			charcoal: '#1a1a1a',
+  			ivory: '#f5f5f0',
+  			gold: '#d4af37',
+  			champagne: '#f7e7ce',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
