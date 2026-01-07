@@ -1,10 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Calendar, Users, Clock, Send } from 'lucide-react';
+import { Calendar, Users, Clock, Send, AlertCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { images } from '../data/mock';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const Reservations = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,7 +21,9 @@ const Reservations = () => {
     time: '',
     requests: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState(null);
   const sectionRef = useRef(null);
 
   useEffect(() => {
