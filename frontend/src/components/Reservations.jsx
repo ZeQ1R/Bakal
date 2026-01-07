@@ -43,22 +43,44 @@ const Reservations = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulated submission
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        guests: '',
-        date: '',
-        time: '',
-        requests: '',
+    setError(null);
+    setIsSubmitting(true);
+    
+    try {
+      // Submit reservation to backend
+      await axios.post(`${API}/reservations`, {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        guests: formData.guests,
+        date: formData.date,
+        time: formData.time,
+        requests: formData.requests || null,
       });
-    }, 3000);
+      
+      setIsSubmitted(true);
+      
+      // Reset form after 4 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          guests: '',
+          date: '',
+          time: '',
+          requests: '',
+        });
+      }, 4000);
+    } catch (err) {
+      console.error('Reservation error:', err);
+      setError('Unable to process your reservation. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field, value) => {
