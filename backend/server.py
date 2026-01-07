@@ -1,12 +1,12 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
@@ -33,6 +33,32 @@ class StatusCheck(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     client_name: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+# Reservation Models
+class ReservationCreate(BaseModel):
+    name: str = Field(..., min_length=2, max_length=100)
+    email: EmailStr
+    phone: Optional[str] = None
+    guests: str = Field(..., min_length=1)
+    date: str = Field(..., description="Reservation date in YYYY-MM-DD format")
+    time: str = Field(..., description="Reservation time slot")
+    requests: Optional[str] = None
+
+
+class Reservation(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: str
+    phone: Optional[str] = None
+    guests: str
+    date: str
+    time: str
+    requests: Optional[str] = None
+    status: str = Field(default="pending")  # pending, confirmed, cancelled
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class StatusCheckCreate(BaseModel):
     client_name: str
