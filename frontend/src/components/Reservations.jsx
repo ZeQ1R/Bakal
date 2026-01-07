@@ -1,0 +1,235 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { Calendar, Users, Clock, Send } from 'lucide-react';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { images } from '../data/mock';
+
+const Reservations = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    guests: '',
+    date: '',
+    time: '',
+    requests: '',
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Simulated submission
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        guests: '',
+        date: '',
+        time: '',
+        requests: '',
+      });
+    }, 3000);
+  };
+
+  const handleChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const timeSlots = [
+    '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM',
+    '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM', '9:00 PM',
+  ];
+
+  const guestOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10+'];
+
+  return (
+    <section
+      id="reservations"
+      ref={sectionRef}
+      className="relative py-24 lg:py-32 overflow-hidden"
+    >
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={images.ambiance}
+          alt="Dining ambiance"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
+      </div>
+
+      <div className="relative max-w-4xl mx-auto px-6 lg:px-8">
+        {/* Section Header */}
+        <div
+          className={`text-center mb-16 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <span className="text-gold text-sm tracking-[0.4em] uppercase">Book Your Visit</span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 tracking-wide">
+            Reservations
+          </h2>
+          <div className="w-20 h-px bg-gold mx-auto mt-8" />
+          <p className="text-ivory/60 mt-6 text-lg max-w-xl mx-auto">
+            Secure your table for an unforgettable dining experience.
+          </p>
+        </div>
+
+        {/* Reservation Form */}
+        <form
+          onSubmit={handleSubmit}
+          className={`bg-charcoal/60 backdrop-blur-sm border border-ivory/10 p-8 lg:p-12 transition-all duration-1000 delay-300 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          }`}
+        >
+          {isSubmitted ? (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full border-2 border-gold flex items-center justify-center">
+                <Send className="text-gold" size={28} />
+              </div>
+              <h3 className="font-serif text-2xl text-ivory mb-3">Reservation Confirmed</h3>
+              <p className="text-ivory/60">We look forward to welcoming you.</p>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {/* Name & Email */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Full Name</label>
+                  <Input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Email</label>
+                  <Input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Phone & Guests */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Phone</label>
+                  <Input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => handleChange('phone', e.target.value)}
+                    className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
+                    placeholder="+1 (555) 000-0000"
+                  />
+                </div>
+                <div>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
+                    <Users className="inline w-4 h-4 mr-2" />Number of Guests
+                  </label>
+                  <Select value={formData.guests} onValueChange={(value) => handleChange('guests', value)}>
+                    <SelectTrigger className="bg-black/50 border-ivory/20 text-ivory h-12">
+                      <SelectValue placeholder="Select guests" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-charcoal border-ivory/20">
+                      {guestOptions.map((num) => (
+                        <SelectItem key={num} value={num} className="text-ivory hover:bg-gold/20">
+                          {num} {num === '1' ? 'Guest' : 'Guests'}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Date & Time */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
+                    <Calendar className="inline w-4 h-4 mr-2" />Date
+                  </label>
+                  <Input
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) => handleChange('date', e.target.value)}
+                    className="bg-black/50 border-ivory/20 text-ivory focus:border-gold h-12"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
+                    <Clock className="inline w-4 h-4 mr-2" />Time
+                  </label>
+                  <Select value={formData.time} onValueChange={(value) => handleChange('time', value)}>
+                    <SelectTrigger className="bg-black/50 border-ivory/20 text-ivory h-12">
+                      <SelectValue placeholder="Select time" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-charcoal border-ivory/20">
+                      {timeSlots.map((time) => (
+                        <SelectItem key={time} value={time} className="text-ivory hover:bg-gold/20">
+                          {time}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Special Requests */}
+              <div>
+                <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Special Requests</label>
+                <Textarea
+                  value={formData.requests}
+                  onChange={(e) => handleChange('requests', e.target.value)}
+                  className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold min-h-[100px]"
+                  placeholder="Dietary requirements, special occasions, seating preferences..."
+                />
+              </div>
+
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                className="w-full bg-gold text-black hover:bg-gold/90 py-6 text-sm tracking-[0.2em] uppercase transition-all duration-500 mt-4"
+              >
+                Confirm Reservation
+              </Button>
+            </div>
+          )}
+        </form>
+      </div>
+    </section>
+  );
+};
+
+export default Reservations;
