@@ -141,9 +141,17 @@ const Reservations = () => {
               </div>
               <h3 className="font-serif text-2xl text-ivory mb-3">Reservation Confirmed</h3>
               <p className="text-ivory/60">We look forward to welcoming you.</p>
+              <p className="text-ivory/40 text-sm mt-2">A confirmation email will be sent shortly.</p>
             </div>
           ) : (
             <div className="space-y-6">
+              {/* Error Message */}
+              {error && (
+                <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/30 text-red-400">
+                  <AlertCircle size={20} />
+                  <span className="text-sm">{error}</span>
+                </div>
+              )}
               {/* Name & Email */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
