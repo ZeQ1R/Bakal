@@ -256,9 +256,10 @@ const Reservations = () => {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full bg-gold text-black hover:bg-gold/90 py-6 text-sm tracking-[0.2em] uppercase transition-all duration-500 mt-4"
+                disabled={isSubmitting}
+                className="w-full bg-gold text-black hover:bg-gold/90 py-6 text-sm tracking-[0.2em] uppercase transition-all duration-500 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Confirm Reservation
+                {isSubmitting ? 'Processing...' : 'Confirm Reservation'}
               </Button>
             </div>
           )}
