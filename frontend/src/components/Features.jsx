@@ -1,27 +1,21 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Wine, Sun, CalendarCheck, Car, Wifi, Bell, Baby, GlassWater } from 'lucide-react';
-import { features } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
-const iconMap = {
-  Wine: Wine,
-  Sun: Sun,
-  CalendarCheck: CalendarCheck,
-  Car: Car,
-  Wifi: Wifi,
-  ConciergeBell: Bell,
-  Baby: Baby,
-  GlassWater: GlassWater,
-};
+const iconComponents = [Wine, Sun, CalendarCheck, Car, Wifi, Bell, Baby, GlassWater];
 
 const Features = () => {
   const [visibleItems, setVisibleItems] = useState([]);
   const sectionRef = useRef(null);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          features.forEach((_, index) => {
+          t.features.items.forEach((_, index) => {
             setTimeout(() => {
               setVisibleItems((prev) => [...new Set([...prev, index])]);
             }, index * 100);
@@ -36,27 +30,27 @@ const Features = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [t.features.items]);
 
   return (
     <section ref={sectionRef} className="py-24 lg:py-32 bg-black">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-gold text-sm tracking-[0.4em] uppercase">Amenities</span>
+          <span className="text-gold text-sm tracking-[0.4em] uppercase">{t.features.sectionLabel}</span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 tracking-wide">
-            Features & Services
+            {t.features.title}
           </h2>
           <div className="w-20 h-px bg-gold mx-auto mt-8" />
         </div>
 
         {/* Features Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-          {features.map((feature, index) => {
-            const IconComponent = iconMap[feature.icon];
+          {t.features.items.map((title, index) => {
+            const IconComponent = iconComponents[index];
             return (
               <div
-                key={feature.id}
+                key={index}
                 className={`group relative p-6 lg:p-8 border border-ivory/10 bg-charcoal/30 hover:bg-charcoal/60 hover:border-gold/30 transition-all duration-500 ${
                   visibleItems.includes(index)
                     ? 'opacity-100 translate-y-0'
@@ -69,7 +63,7 @@ const Features = () => {
                 </div>
                 {/* Title */}
                 <h4 className="text-ivory text-sm lg:text-base tracking-wider">
-                  {feature.title}
+                  {title}
                 </h4>
                 {/* Gold accent on hover */}
                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-500 group-hover:w-full" />
