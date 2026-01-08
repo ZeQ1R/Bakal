@@ -1,17 +1,30 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { galleryImages } from '../data/mock';
+import { images } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
+
+const galleryData = [
+  { src: images.hero, category: 'dishes' },
+  { src: images.interior, category: 'interior' },
+  { src: images.ambiance, category: 'ambiance' },
+  { src: images.chef, category: 'kitchen' },
+  { src: images.wellington, category: 'dishes' },
+  { src: images.plating, category: 'dishes' },
+];
 
 const Gallery = () => {
   const [visibleItems, setVisibleItems] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const sectionRef = useRef(null);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          galleryImages.forEach((_, index) => {
+          galleryData.forEach((_, index) => {
             setTimeout(() => {
               setVisibleItems((prev) => [...new Set([...prev, index])]);
             }, index * 150);
