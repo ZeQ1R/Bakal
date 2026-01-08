@@ -133,8 +133,8 @@ const Footer = () => {
               </a>
             </div>
             <p className="text-ivory/40 text-xs leading-relaxed">
-              Vegetarian Friendly • Vegan Options<br />
-              Private Dining Available
+              {t.footer.vegetarianFriendly}<br />
+              {t.footer.privateDining}
             </p>
           </div>
         </div>
@@ -142,14 +142,14 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-ivory/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-ivory/40 text-xs tracking-wider">
-            © {currentYear} BAKAL : CUISINES. All rights reserved.
+            © {currentYear} BAKAL : CUISINES. {t.footer.allRights}
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-ivory/40 text-xs hover:text-gold transition-colors">
-              Privacy Policy
+              {t.footer.privacyPolicy}
             </a>
             <a href="#" className="text-ivory/40 text-xs hover:text-gold transition-colors">
-              Terms of Service
+              {t.footer.termsOfService}
             </a>
           </div>
         </div>
