@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { culinarySignatures } from '../data/mock';
+import { images } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const CulinarySignatures = () => {
   const [visibleItems, setVisibleItems] = useState([]);
   const sectionRef = useRef(null);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
+
+  const signatureImages = [images.plating, images.wellington, images.dish1, images.chef];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
