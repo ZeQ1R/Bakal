@@ -63,9 +63,9 @@ const Testimonials = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <span className="text-gold text-sm tracking-[0.4em] uppercase">Voices</span>
+          <span className="text-gold text-sm tracking-[0.4em] uppercase">{t.testimonials.sectionLabel}</span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 tracking-wide">
-            Guest Testimonials
+            {t.testimonials.title}
           </h2>
           <div className="w-20 h-px bg-gold mx-auto mt-8" />
         </div>
@@ -87,14 +87,14 @@ const Testimonials = () => {
               key={currentIndex}
               className="font-serif text-2xl md:text-3xl lg:text-4xl text-ivory leading-relaxed max-w-4xl mx-auto animate-fade-in"
             >
-              "{testimonials[currentIndex].quote}"
+              "{t.testimonials.items[currentIndex].quote}"
             </p>
             <div className="mt-10 animate-fade-in">
               <p className="text-gold text-lg tracking-wider">
-                {testimonials[currentIndex].author}
+                {t.testimonials.items[currentIndex].author}
               </p>
               <p className="text-ivory/50 text-sm tracking-wider mt-1">
-                {testimonials[currentIndex].title}
+                {t.testimonials.items[currentIndex].title}
               </p>
             </div>
           </div>
@@ -111,7 +111,7 @@ const Testimonials = () => {
 
             {/* Dots */}
             <div className="flex gap-3">
-              {testimonials.map((_, index) => (
+              {t.testimonials.items.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => {
