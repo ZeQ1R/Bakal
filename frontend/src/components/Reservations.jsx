@@ -143,9 +143,9 @@ const Reservations = () => {
               <div className="w-16 h-16 mx-auto mb-6 rounded-full border-2 border-gold flex items-center justify-center">
                 <Send className="text-gold" size={28} />
               </div>
-              <h3 className="font-serif text-2xl text-ivory mb-3">Reservation Confirmed</h3>
-              <p className="text-ivory/60">We look forward to welcoming you.</p>
-              <p className="text-ivory/40 text-sm mt-2">A confirmation email will be sent shortly.</p>
+              <h3 className="font-serif text-2xl text-ivory mb-3">{t.reservations.success.title}</h3>
+              <p className="text-ivory/60">{t.reservations.success.message}</p>
+              <p className="text-ivory/40 text-sm mt-2">{t.reservations.success.emailNote}</p>
             </div>
           ) : (
             <div className="space-y-6">
