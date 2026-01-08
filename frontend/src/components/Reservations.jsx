@@ -185,13 +185,13 @@ const Reservations = () => {
               {/* Phone & Guests */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Phone</label>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">{t.reservations.form.phone}</label>
                   <Input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleChange('phone', e.target.value)}
                     className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder={t.reservations.form.phonePlaceholder}
                   />
                 </div>
                 <div>
