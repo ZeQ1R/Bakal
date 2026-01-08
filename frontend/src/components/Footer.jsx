@@ -1,8 +1,12 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Twitter } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   return (
     <footer id="contact" className="bg-black border-t border-ivory/10">
