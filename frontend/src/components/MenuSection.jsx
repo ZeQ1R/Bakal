@@ -71,20 +71,20 @@ const MenuSection = () => {
   useEffect(() => {
     setVisibleItems([]);
     const timer = setTimeout(() => {
-      menuItems[activeTab].forEach((_, index) => {
+      t.menu.items[activeTab].forEach((_, index) => {
         setTimeout(() => {
           setVisibleItems((prev) => [...prev, index]);
         }, index * 150);
       });
     }, 300);
     return () => clearTimeout(timer);
-  }, [activeTab]);
+  }, [activeTab, t.menu.items]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          menuItems[activeTab].forEach((_, index) => {
+          t.menu.items[activeTab].forEach((_, index) => {
             setTimeout(() => {
               setVisibleItems((prev) => [...new Set([...prev, index])]);
             }, index * 150);
@@ -99,7 +99,7 @@ const MenuSection = () => {
     }
 
     return () => observer.disconnect();
-  }, [activeTab]);
+  }, [activeTab, t.menu.items]);
 
   return (
     <section id="menus" ref={sectionRef} className="py-24 lg:py-32 bg-black">
