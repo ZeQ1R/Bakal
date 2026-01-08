@@ -81,7 +81,7 @@ const Reservations = () => {
       }, 4000);
     } catch (err) {
       console.error('Reservation error:', err);
-      setError('Unable to process your reservation. Please try again or call us directly.');
+      setError(t.reservations.error);
     } finally {
       setIsSubmitting(false);
     }
