@@ -229,11 +229,11 @@ const Reservations = () => {
                 </div>
                 <div>
                   <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
-                    <Clock className="inline w-4 h-4 mr-2" />Time
+                    <Clock className="inline w-4 h-4 mr-2" />{t.reservations.form.time}
                   </label>
                   <Select value={formData.time} onValueChange={(value) => handleChange('time', value)}>
                     <SelectTrigger className="bg-black/50 border-ivory/20 text-ivory h-12">
-                      <SelectValue placeholder="Select time" />
+                      <SelectValue placeholder={t.reservations.form.selectTime} />
                     </SelectTrigger>
                     <SelectContent className="bg-charcoal border-ivory/20">
                       {timeSlots.map((time) => (
