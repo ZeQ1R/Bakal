@@ -170,13 +170,13 @@ const Reservations = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Email</label>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">{t.reservations.form.email}</label>
                   <Input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
                     className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
-                    placeholder="your@email.com"
+                    placeholder={t.reservations.form.emailPlaceholder}
                     required
                   />
                 </div>
