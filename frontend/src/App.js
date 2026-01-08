@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CulinarySignatures from './components/CulinarySignatures';
@@ -14,19 +15,21 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App bg-black min-h-screen">
-      <Navbar />
-      <Hero />
-      <CulinarySignatures />
-      <MenuSection />
-      <Experience />
-      <Features />
-      <Gallery />
-      <Testimonials />
-      <Reservations />
-      <CallToAction />
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="App bg-black min-h-screen">
+        <Navbar />
+        <Hero />
+        <CulinarySignatures />
+        <MenuSection />
+        <Experience />
+        <Features />
+        <Gallery />
+        <Testimonials />
+        <Reservations />
+        <CallToAction />
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }
 
