@@ -106,9 +106,9 @@ const MenuSection = () => {
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-gold text-sm tracking-[0.4em] uppercase">Culinary Excellence</span>
+          <span className="text-gold text-sm tracking-[0.4em] uppercase">{t.menu.sectionLabel}</span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 tracking-wide">
-            Our Menus
+            {t.menu.title}
           </h2>
           <div className="w-20 h-px bg-gold mx-auto mt-8" />
         </div>
@@ -126,7 +126,7 @@ const MenuSection = () => {
                     : 'border-transparent text-ivory/50 hover:text-ivory bg-transparent'
                 }`}
               >
-                {tab}
+                {t.menu.tabs[tab]}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -135,11 +135,14 @@ const MenuSection = () => {
           {['lunch', 'dinner', 'brunch'].map((tab) => (
             <TabsContent key={tab} value={tab} className="mt-0">
               <div className="space-y-2">
-                {menuItems[tab].map((item, index) => (
+                {t.menu.items[tab].map((item, index) => (
                   <MenuItem
-                    key={item.id}
+                    key={index}
                     item={item}
+                    price={menuPrices[tab][index]}
+                    dietInfo={menuDietInfo[tab][index]}
                     isVisible={visibleItems.includes(index)}
+                    t={t}
                   />
                 ))}
               </div>
@@ -152,11 +155,11 @@ const MenuSection = () => {
           <div className="flex items-center gap-6 text-sm text-ivory/50">
             <span className="flex items-center gap-2">
               <Leaf size={16} className="text-green-500" />
-              Vegetarian
+              {t.menu.vegetarian}
             </span>
             <span className="flex items-center gap-2">
               <LeafyGreen size={16} className="text-green-400" />
-              Vegan
+              {t.menu.vegan}
             </span>
           </div>
           <Button
@@ -164,7 +167,7 @@ const MenuSection = () => {
             className="text-ivory/50 hover:text-gold hover:bg-transparent text-sm tracking-widest uppercase"
           >
             <Download size={18} className="mr-2" />
-            Download Menu
+            {t.menu.downloadMenu}
           </Button>
         </div>
       </div>
