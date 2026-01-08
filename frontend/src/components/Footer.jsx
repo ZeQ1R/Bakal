@@ -25,14 +25,13 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-ivory/50 text-sm leading-relaxed">
-              Where world cuisines meet fire and elegance. An elevated dining
-              experience of international flavors and refined barbecue.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">Contact</h4>
+            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">{t.footer.contact}</h4>
             <ul className="space-y-4">
               <li>
                 <a
