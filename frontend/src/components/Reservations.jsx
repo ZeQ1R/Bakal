@@ -121,13 +121,13 @@ const Reservations = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <span className="text-gold text-sm tracking-[0.4em] uppercase">Book Your Visit</span>
+          <span className="text-gold text-sm tracking-[0.4em] uppercase">{t.reservations.sectionLabel}</span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 tracking-wide">
-            Reservations
+            {t.reservations.title}
           </h2>
           <div className="w-20 h-px bg-gold mx-auto mt-8" />
           <p className="text-ivory/60 mt-6 text-lg max-w-xl mx-auto">
-            Secure your table for an unforgettable dining experience.
+            {t.reservations.subtitle}
           </p>
         </div>
 
