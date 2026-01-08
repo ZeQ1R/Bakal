@@ -126,11 +126,14 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <div className="mt-4">
+            <LanguageSwitcher />
+          </div>
           <Button
             onClick={() => scrollToSection('#reservations')}
-            className="mt-8 bg-gold text-black hover:bg-gold/90 px-10 py-6 text-sm tracking-widest uppercase"
+            className="mt-4 bg-gold text-black hover:bg-gold/90 px-10 py-6 text-sm tracking-widest uppercase"
           >
-            Reserve a Table
+            {t.nav.reserveTable}
           </Button>
         </div>
       </div>
