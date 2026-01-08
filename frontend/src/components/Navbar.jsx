@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { navLinks } from '../data/mock';
 import { Button } from './ui/button';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
+
+  const navLinks = [
+    { name: t.nav.home, href: '#home' },
+    { name: t.nav.menus, href: '#menus' },
+    { name: t.nav.experience, href: '#experience' },
+    { name: t.nav.gallery, href: '#gallery' },
+    { name: t.nav.reservations, href: '#reservations' },
+    { name: t.nav.contact, href: '#contact' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
