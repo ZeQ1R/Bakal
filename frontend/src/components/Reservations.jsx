@@ -196,16 +196,16 @@ const Reservations = () => {
                 </div>
                 <div>
                   <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
-                    <Users className="inline w-4 h-4 mr-2" />Number of Guests
+                    <Users className="inline w-4 h-4 mr-2" />{t.reservations.form.guests}
                   </label>
                   <Select value={formData.guests} onValueChange={(value) => handleChange('guests', value)}>
                     <SelectTrigger className="bg-black/50 border-ivory/20 text-ivory h-12">
-                      <SelectValue placeholder="Select guests" />
+                      <SelectValue placeholder={t.reservations.form.selectGuests} />
                     </SelectTrigger>
                     <SelectContent className="bg-charcoal border-ivory/20">
                       {guestOptions.map((num) => (
                         <SelectItem key={num} value={num} className="text-ivory hover:bg-gold/20">
-                          {num} {num === '1' ? 'Guest' : 'Guests'}
+                          {num} {num === '1' ? t.reservations.form.guest : t.reservations.form.guestsLabel}
                         </SelectItem>
                       ))}
                     </SelectContent>
