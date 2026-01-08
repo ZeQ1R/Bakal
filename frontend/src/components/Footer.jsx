@@ -70,39 +70,39 @@ const Footer = () => {
 
           {/* Hours */}
           <div>
-            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">Hours</h4>
+            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">{t.footer.hours}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-ivory/60">
                 <Clock size={18} className="mt-0.5 flex-shrink-0" />
                 <div className="text-sm">
-                  <p className="text-ivory/80">Lunch</p>
+                  <p className="text-ivory/80">{t.footer.lunch}</p>
                   <p>Tue - Sun: 12:00 - 15:00</p>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-ivory/60">
                 <Clock size={18} className="mt-0.5 flex-shrink-0 opacity-0" />
                 <div className="text-sm">
-                  <p className="text-ivory/80">Dinner</p>
+                  <p className="text-ivory/80">{t.footer.dinner}</p>
                   <p>Tue - Sun: 18:00 - 23:00</p>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-ivory/60">
                 <Clock size={18} className="mt-0.5 flex-shrink-0 opacity-0" />
                 <div className="text-sm">
-                  <p className="text-ivory/80">Brunch</p>
+                  <p className="text-ivory/80">{t.footer.brunch}</p>
                   <p>Sat - Sun: 10:00 - 14:00</p>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-ivory/50">
                 <Clock size={18} className="mt-0.5 flex-shrink-0 opacity-0" />
-                <p className="text-sm italic">Closed Mondays</p>
+                <p className="text-sm italic">{t.footer.closedMondays}</p>
               </li>
             </ul>
           </div>
 
           {/* Social & Newsletter */}
           <div>
-            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">Follow Us</h4>
+            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">{t.footer.followUs}</h4>
             <div className="flex gap-4 mb-8">
               <a
                 href="https://instagram.com"
