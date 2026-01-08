@@ -1,9 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { images } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const Experience = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,33 +40,28 @@ const Experience = () => {
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
             }`}
           >
-            <span className="text-gold text-sm tracking-[0.4em] uppercase">Our Story</span>
+            <span className="text-gold text-sm tracking-[0.4em] uppercase">{t.experience.sectionLabel}</span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 mb-8 tracking-wide leading-tight">
-              The BAKAL
+              {t.experience.title}
               <br />
-              Experience
+              {t.experience.titleLine2}
             </h2>
             <div className="w-20 h-px bg-gold mb-8" />
             <p className="text-ivory/70 text-lg lg:text-xl leading-relaxed mb-6">
-              At BAKAL : CUISINES, every dish is an expression of culture, fire, and
-              craftsmanship. From international inspirations to refined barbecue
-              techniques, we deliver an experience defined by precision and passion.
+              {t.experience.paragraph1}
             </p>
             <p className="text-ivory/50 text-base lg:text-lg leading-relaxed">
-              Our master chefs draw upon generations of culinary wisdom, combining
-              time-honored traditions with contemporary innovation. Each plate tells
-              a story—of distant lands, of smoldering flames, of ingredients at their
-              peak. This is not simply dining; this is a journey.
+              {t.experience.paragraph2}
             </p>
             <div className="mt-10 flex items-center gap-8">
               <div className="text-center">
                 <span className="font-serif text-4xl lg:text-5xl text-gold">15+</span>
-                <p className="text-ivory/50 text-sm mt-2 tracking-wider uppercase">Years of Excellence</p>
+                <p className="text-ivory/50 text-sm mt-2 tracking-wider uppercase">{t.experience.yearsLabel}</p>
               </div>
               <div className="w-px h-16 bg-ivory/20" />
               <div className="text-center">
                 <span className="font-serif text-4xl lg:text-5xl text-gold">50k+</span>
-                <p className="text-ivory/50 text-sm mt-2 tracking-wider uppercase">Guests Served</p>
+                <p className="text-ivory/50 text-sm mt-2 tracking-wider uppercase">{t.experience.guestsLabel}</p>
               </div>
             </div>
           </div>

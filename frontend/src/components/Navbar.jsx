@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { navLinks } from '../data/mock';
 import { Button } from './ui/button';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
+
+  const navLinks = [
+    { name: t.nav.home, href: '#home' },
+    { name: t.nav.menus, href: '#menus' },
+    { name: t.nav.experience, href: '#experience' },
+    { name: t.nav.gallery, href: '#gallery' },
+    { name: t.nav.reservations, href: '#reservations' },
+    { name: t.nav.contact, href: '#contact' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,13 +81,14 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* CTA Button and Language Switcher */}
+          <div className="hidden lg:flex items-center gap-4">
+            <LanguageSwitcher />
             <Button
               onClick={() => scrollToSection('#reservations')}
               className="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-8 py-6 text-sm tracking-widest uppercase transition-all duration-500"
             >
-              Reserve a Table
+              {t.nav.reserveTable}
             </Button>
           </div>
 
@@ -112,11 +126,14 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <div className="mt-4">
+            <LanguageSwitcher />
+          </div>
           <Button
             onClick={() => scrollToSection('#reservations')}
-            className="mt-8 bg-gold text-black hover:bg-gold/90 px-10 py-6 text-sm tracking-widest uppercase"
+            className="mt-4 bg-gold text-black hover:bg-gold/90 px-10 py-6 text-sm tracking-widest uppercase"
           >
-            Reserve a Table
+            {t.nav.reserveTable}
           </Button>
         </div>
       </div>

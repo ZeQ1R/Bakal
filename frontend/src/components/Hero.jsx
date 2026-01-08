@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { images } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 300);
@@ -50,9 +54,9 @@ const Hero = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            Where World Cuisines
+            {t.hero.headline}
             <br />
-            <span className="text-gold">Meet Fire & Elegance</span>
+            <span className="text-gold">{t.hero.headlineAccent}</span>
           </h1>
 
           {/* Subheading */}
@@ -61,7 +65,7 @@ const Hero = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            An elevated dining experience of international flavors and refined barbecue.
+            {t.hero.subheading}
           </p>
 
           {/* CTA Buttons */}
@@ -74,13 +78,13 @@ const Hero = () => {
               onClick={() => scrollToSection('#menus')}
               className="bg-transparent border-2 border-ivory text-ivory hover:bg-ivory hover:text-black px-10 py-6 text-sm tracking-[0.2em] uppercase transition-all duration-500"
             >
-              View Menus
+              {t.hero.viewMenus}
             </Button>
             <Button
               onClick={() => scrollToSection('#reservations')}
               className="bg-gold text-black hover:bg-gold/90 px-10 py-6 text-sm tracking-[0.2em] uppercase transition-all duration-500"
             >
-              Reserve Now
+              {t.hero.reserveNow}
             </Button>
           </div>
         </div>
@@ -96,7 +100,7 @@ const Hero = () => {
             className="flex flex-col items-center text-ivory/50 hover:text-gold transition-colors duration-300 group"
             aria-label="Scroll down"
           >
-            <span className="text-xs tracking-[0.3em] uppercase mb-3">Discover</span>
+            <span className="text-xs tracking-[0.3em] uppercase mb-3">{t.hero.discover}</span>
             <ChevronDown className="w-6 h-6 animate-bounce" />
           </button>
         </div>

@@ -1,17 +1,30 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { galleryImages } from '../data/mock';
+import { images } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
+
+const galleryData = [
+  { src: images.hero, category: 'dishes' },
+  { src: images.interior, category: 'interior' },
+  { src: images.ambiance, category: 'ambiance' },
+  { src: images.chef, category: 'kitchen' },
+  { src: images.wellington, category: 'dishes' },
+  { src: images.plating, category: 'dishes' },
+];
 
 const Gallery = () => {
   const [visibleItems, setVisibleItems] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const sectionRef = useRef(null);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          galleryImages.forEach((_, index) => {
+          galleryData.forEach((_, index) => {
             setTimeout(() => {
               setVisibleItems((prev) => [...new Set([...prev, index])]);
             }, index * 150);
@@ -43,19 +56,19 @@ const Gallery = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-gold text-sm tracking-[0.4em] uppercase">Visual Journey</span>
+          <span className="text-gold text-sm tracking-[0.4em] uppercase">{t.gallery.sectionLabel}</span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 tracking-wide">
-            Gallery
+            {t.gallery.title}
           </h2>
           <div className="w-20 h-px bg-gold mx-auto mt-8" />
         </div>
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {galleryImages.map((image, index) => (
+          {galleryData.map((image, index) => (
             <div
-              key={image.id}
-              onClick={() => setSelectedImage(image)}
+              key={index}
+              onClick={() => setSelectedImage({ ...image, alt: t.gallery.categories[image.category] })}
               className={`group relative overflow-hidden cursor-pointer aspect-[4/3] transition-all duration-700 ${
                 visibleItems.includes(index)
                   ? 'opacity-100 translate-y-0'
@@ -66,13 +79,13 @@ const Gallery = () => {
             >
               <img
                 src={image.src}
-                alt={image.alt}
+                alt={t.gallery.categories[image.category]}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               {/* Overlay */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                 <span className="text-ivory text-sm tracking-[0.3em] uppercase transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  {image.category}
+                  {t.gallery.categories[image.category]}
                 </span>
               </div>
               {/* Gold border accent */}

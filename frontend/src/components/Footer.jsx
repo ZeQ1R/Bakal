@@ -1,8 +1,12 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Twitter } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   return (
     <footer id="contact" className="bg-black border-t border-ivory/10">
@@ -21,14 +25,13 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-ivory/50 text-sm leading-relaxed">
-              Where world cuisines meet fire and elegance. An elevated dining
-              experience of international flavors and refined barbecue.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">Contact</h4>
+            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">{t.footer.contact}</h4>
             <ul className="space-y-4">
               <li>
                 <a
@@ -67,39 +70,39 @@ const Footer = () => {
 
           {/* Hours */}
           <div>
-            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">Hours</h4>
+            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">{t.footer.hours}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-ivory/60">
                 <Clock size={18} className="mt-0.5 flex-shrink-0" />
                 <div className="text-sm">
-                  <p className="text-ivory/80">Lunch</p>
+                  <p className="text-ivory/80">{t.footer.lunch}</p>
                   <p>Tue - Sun: 12:00 - 15:00</p>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-ivory/60">
                 <Clock size={18} className="mt-0.5 flex-shrink-0 opacity-0" />
                 <div className="text-sm">
-                  <p className="text-ivory/80">Dinner</p>
+                  <p className="text-ivory/80">{t.footer.dinner}</p>
                   <p>Tue - Sun: 18:00 - 23:00</p>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-ivory/60">
                 <Clock size={18} className="mt-0.5 flex-shrink-0 opacity-0" />
                 <div className="text-sm">
-                  <p className="text-ivory/80">Brunch</p>
+                  <p className="text-ivory/80">{t.footer.brunch}</p>
                   <p>Sat - Sun: 10:00 - 14:00</p>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-ivory/50">
                 <Clock size={18} className="mt-0.5 flex-shrink-0 opacity-0" />
-                <p className="text-sm italic">Closed Mondays</p>
+                <p className="text-sm italic">{t.footer.closedMondays}</p>
               </li>
             </ul>
           </div>
 
           {/* Social & Newsletter */}
           <div>
-            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">Follow Us</h4>
+            <h4 className="text-ivory text-sm tracking-[0.3em] uppercase mb-6">{t.footer.followUs}</h4>
             <div className="flex gap-4 mb-8">
               <a
                 href="https://instagram.com"
@@ -130,8 +133,8 @@ const Footer = () => {
               </a>
             </div>
             <p className="text-ivory/40 text-xs leading-relaxed">
-              Vegetarian Friendly • Vegan Options<br />
-              Private Dining Available
+              {t.footer.vegetarianFriendly}<br />
+              {t.footer.privateDining}
             </p>
           </div>
         </div>
@@ -139,14 +142,14 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-ivory/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-ivory/40 text-xs tracking-wider">
-            © {currentYear} BAKAL : CUISINES. All rights reserved.
+            © {currentYear} BAKAL : CUISINES. {t.footer.allRights}
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-ivory/40 text-xs hover:text-gold transition-colors">
-              Privacy Policy
+              {t.footer.privacyPolicy}
             </a>
             <a href="#" className="text-ivory/40 text-xs hover:text-gold transition-colors">
-              Terms of Service
+              {t.footer.termsOfService}
             </a>
           </div>
         </div>

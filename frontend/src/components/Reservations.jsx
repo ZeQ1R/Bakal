@@ -5,6 +5,8 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { images } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -25,6 +27,8 @@ const Reservations = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const sectionRef = useRef(null);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -77,7 +81,7 @@ const Reservations = () => {
       }, 4000);
     } catch (err) {
       console.error('Reservation error:', err);
-      setError('Unable to process your reservation. Please try again or call us directly.');
+      setError(t.reservations.error);
     } finally {
       setIsSubmitting(false);
     }
@@ -117,13 +121,13 @@ const Reservations = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <span className="text-gold text-sm tracking-[0.4em] uppercase">Book Your Visit</span>
+          <span className="text-gold text-sm tracking-[0.4em] uppercase">{t.reservations.sectionLabel}</span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 tracking-wide">
-            Reservations
+            {t.reservations.title}
           </h2>
           <div className="w-20 h-px bg-gold mx-auto mt-8" />
           <p className="text-ivory/60 mt-6 text-lg max-w-xl mx-auto">
-            Secure your table for an unforgettable dining experience.
+            {t.reservations.subtitle}
           </p>
         </div>
 
@@ -139,9 +143,9 @@ const Reservations = () => {
               <div className="w-16 h-16 mx-auto mb-6 rounded-full border-2 border-gold flex items-center justify-center">
                 <Send className="text-gold" size={28} />
               </div>
-              <h3 className="font-serif text-2xl text-ivory mb-3">Reservation Confirmed</h3>
-              <p className="text-ivory/60">We look forward to welcoming you.</p>
-              <p className="text-ivory/40 text-sm mt-2">A confirmation email will be sent shortly.</p>
+              <h3 className="font-serif text-2xl text-ivory mb-3">{t.reservations.success.title}</h3>
+              <p className="text-ivory/60">{t.reservations.success.message}</p>
+              <p className="text-ivory/40 text-sm mt-2">{t.reservations.success.emailNote}</p>
             </div>
           ) : (
             <div className="space-y-6">
@@ -155,24 +159,24 @@ const Reservations = () => {
               {/* Name & Email */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Full Name</label>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">{t.reservations.form.fullName}</label>
                   <Input
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
                     className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
-                    placeholder="Your name"
+                    placeholder={t.reservations.form.namePlaceholder}
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Email</label>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">{t.reservations.form.email}</label>
                   <Input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
                     className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
-                    placeholder="your@email.com"
+                    placeholder={t.reservations.form.emailPlaceholder}
                     required
                   />
                 </div>
@@ -181,27 +185,27 @@ const Reservations = () => {
               {/* Phone & Guests */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Phone</label>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">{t.reservations.form.phone}</label>
                   <Input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleChange('phone', e.target.value)}
                     className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder={t.reservations.form.phonePlaceholder}
                   />
                 </div>
                 <div>
                   <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
-                    <Users className="inline w-4 h-4 mr-2" />Number of Guests
+                    <Users className="inline w-4 h-4 mr-2" />{t.reservations.form.guests}
                   </label>
                   <Select value={formData.guests} onValueChange={(value) => handleChange('guests', value)}>
                     <SelectTrigger className="bg-black/50 border-ivory/20 text-ivory h-12">
-                      <SelectValue placeholder="Select guests" />
+                      <SelectValue placeholder={t.reservations.form.selectGuests} />
                     </SelectTrigger>
                     <SelectContent className="bg-charcoal border-ivory/20">
                       {guestOptions.map((num) => (
                         <SelectItem key={num} value={num} className="text-ivory hover:bg-gold/20">
-                          {num} {num === '1' ? 'Guest' : 'Guests'}
+                          {num} {num === '1' ? t.reservations.form.guest : t.reservations.form.guestsLabel}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -213,7 +217,7 @@ const Reservations = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
-                    <Calendar className="inline w-4 h-4 mr-2" />Date
+                    <Calendar className="inline w-4 h-4 mr-2" />{t.reservations.form.date}
                   </label>
                   <Input
                     type="date"
@@ -225,11 +229,11 @@ const Reservations = () => {
                 </div>
                 <div>
                   <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
-                    <Clock className="inline w-4 h-4 mr-2" />Time
+                    <Clock className="inline w-4 h-4 mr-2" />{t.reservations.form.time}
                   </label>
                   <Select value={formData.time} onValueChange={(value) => handleChange('time', value)}>
                     <SelectTrigger className="bg-black/50 border-ivory/20 text-ivory h-12">
-                      <SelectValue placeholder="Select time" />
+                      <SelectValue placeholder={t.reservations.form.selectTime} />
                     </SelectTrigger>
                     <SelectContent className="bg-charcoal border-ivory/20">
                       {timeSlots.map((time) => (
@@ -244,12 +248,12 @@ const Reservations = () => {
 
               {/* Special Requests */}
               <div>
-                <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Special Requests</label>
+                <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">{t.reservations.form.specialRequests}</label>
                 <Textarea
                   value={formData.requests}
                   onChange={(e) => handleChange('requests', e.target.value)}
                   className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold min-h-[100px]"
-                  placeholder="Dietary requirements, special occasions, seating preferences..."
+                  placeholder={t.reservations.form.requestsPlaceholder}
                 />
               </div>
 
@@ -259,7 +263,7 @@ const Reservations = () => {
                 disabled={isSubmitting}
                 className="w-full bg-gold text-black hover:bg-gold/90 py-6 text-sm tracking-[0.2em] uppercase transition-all duration-500 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Processing...' : 'Confirm Reservation'}
+                {isSubmitting ? t.reservations.form.processing : t.reservations.form.submit}
               </Button>
             </div>
           )}
