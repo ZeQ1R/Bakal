@@ -217,7 +217,7 @@ const Reservations = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">
-                    <Calendar className="inline w-4 h-4 mr-2" />Date
+                    <Calendar className="inline w-4 h-4 mr-2" />{t.reservations.form.date}
                   </label>
                   <Input
                     type="date"
