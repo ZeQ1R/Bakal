@@ -100,7 +100,7 @@ const Hero = () => {
             className="flex flex-col items-center text-ivory/50 hover:text-gold transition-colors duration-300 group"
             aria-label="Scroll down"
           >
-            <span className="text-xs tracking-[0.3em] uppercase mb-3">Discover</span>
+            <span className="text-xs tracking-[0.3em] uppercase mb-3">{t.hero.discover}</span>
             <ChevronDown className="w-6 h-6 animate-bounce" />
           </button>
         </div>
