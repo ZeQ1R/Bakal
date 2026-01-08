@@ -263,7 +263,7 @@ const Reservations = () => {
                 disabled={isSubmitting}
                 className="w-full bg-gold text-black hover:bg-gold/90 py-6 text-sm tracking-[0.2em] uppercase transition-all duration-500 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Processing...' : 'Confirm Reservation'}
+                {isSubmitting ? t.reservations.form.processing : t.reservations.form.submit}
               </Button>
             </div>
           )}
