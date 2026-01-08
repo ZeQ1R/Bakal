@@ -159,13 +159,13 @@ const Reservations = () => {
               {/* Name & Email */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Full Name</label>
+                  <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">{t.reservations.form.fullName}</label>
                   <Input
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
                     className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold h-12"
-                    placeholder="Your name"
+                    placeholder={t.reservations.form.namePlaceholder}
                     required
                   />
                 </div>
