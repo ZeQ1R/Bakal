@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { images } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 300);
