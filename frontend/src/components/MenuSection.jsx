@@ -2,9 +2,40 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Leaf, LeafyGreen, Download } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Button } from './ui/button';
-import { menuItems } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../translations';
 
-const MenuItem = ({ item, isVisible }) => (
+const menuPrices = {
+  lunch: ['$42', '$38', '$34', '$28', '$36'],
+  dinner: ['$78', '$95', '$85', '$48', '$38'],
+  brunch: ['$28', '$52', '$24', '$26', '$22'],
+};
+
+const menuDietInfo = {
+  lunch: [
+    { isVegan: false, isVegetarian: false },
+    { isVegan: false, isVegetarian: false },
+    { isVegan: false, isVegetarian: true },
+    { isVegan: true, isVegetarian: true },
+    { isVegan: false, isVegetarian: false },
+  ],
+  dinner: [
+    { isVegan: false, isVegetarian: false },
+    { isVegan: false, isVegetarian: false },
+    { isVegan: false, isVegetarian: false },
+    { isVegan: false, isVegetarian: true },
+    { isVegan: true, isVegetarian: true },
+  ],
+  brunch: [
+    { isVegan: false, isVegetarian: false },
+    { isVegan: false, isVegetarian: false },
+    { isVegan: false, isVegetarian: true },
+    { isVegan: true, isVegetarian: true },
+    { isVegan: false, isVegetarian: true },
+  ],
+};
+
+const MenuItem = ({ item, price, dietInfo, isVisible, t }) => (
   <div
     className={`flex justify-between items-start py-6 border-b border-ivory/10 transition-all duration-700 ${
       isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
@@ -13,20 +44,20 @@ const MenuItem = ({ item, isVisible }) => (
     <div className="flex-1">
       <div className="flex items-center gap-3">
         <h4 className="font-serif text-xl lg:text-2xl text-ivory">{item.name}</h4>
-        {item.isVegan && (
-          <span className="text-green-400" title="Vegan">
+        {dietInfo.isVegan && (
+          <span className="text-green-400" title={t.menu.vegan}>
             <LeafyGreen size={18} />
           </span>
         )}
-        {item.isVegetarian && !item.isVegan && (
-          <span className="text-green-500" title="Vegetarian">
+        {dietInfo.isVegetarian && !dietInfo.isVegan && (
+          <span className="text-green-500" title={t.menu.vegetarian}>
             <Leaf size={18} />
           </span>
         )}
       </div>
       <p className="text-ivory/50 mt-2 text-sm lg:text-base">{item.description}</p>
     </div>
-    <span className="font-serif text-xl lg:text-2xl text-gold ml-8">{item.price}</span>
+    <span className="font-serif text-xl lg:text-2xl text-gold ml-8">{price}</span>
   </div>
 );
 
@@ -34,6 +65,8 @@ const MenuSection = () => {
   const [activeTab, setActiveTab] = useState('dinner');
   const [visibleItems, setVisibleItems] = useState([]);
   const sectionRef = useRef(null);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     setVisibleItems([]);
