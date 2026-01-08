@@ -41,18 +41,18 @@ const CulinarySignatures = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <span className="text-gold text-sm tracking-[0.4em] uppercase">Our Craft</span>
+          <span className="text-gold text-sm tracking-[0.4em] uppercase">{t.signatures.sectionLabel}</span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-ivory mt-4 tracking-wide">
-            Culinary Signatures
+            {t.signatures.title}
           </h2>
           <div className="w-20 h-px bg-gold mx-auto mt-8" />
         </div>
 
         {/* Editorial Grid */}
         <div className="space-y-24 lg:space-y-32">
-          {culinarySignatures.map((item, index) => (
+          {t.signatures.items.map((item, index) => (
             <div
-              key={item.id}
+              key={index}
               data-index={index}
               className={`signature-item grid lg:grid-cols-2 gap-8 lg:gap-16 items-center transition-all duration-1000 ${
                 visibleItems.includes(index)
@@ -68,7 +68,7 @@ const CulinarySignatures = () => {
               >
                 <div className="aspect-[4/3] lg:aspect-[3/2] overflow-hidden">
                   <img
-                    src={item.image}
+                    src={signatureImages[index]}
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
                   />
@@ -95,9 +95,9 @@ const CulinarySignatures = () => {
                 <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl text-ivory mt-4 mb-6 tracking-wide">
                   {item.title}
                 </h3>
-                <p className="text-ivory/60 text-lg leading-relaxed max-w-xl ${
+                <p className={`text-ivory/60 text-lg leading-relaxed max-w-xl ${
                   index % 2 === 1 ? 'lg:ml-auto' : ''
-                }">
+                }`}>
                   {item.description}
                 </p>
                 <div
