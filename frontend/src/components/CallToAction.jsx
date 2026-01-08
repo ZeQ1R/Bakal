@@ -55,9 +55,9 @@ const CallToAction = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          An experience crafted for those
+          {t.cta.headline}
           <br />
-          <span className="text-gold">who expect more.</span>
+          <span className="text-gold">{t.cta.headlineAccent}</span>
         </h2>
 
         {/* CTA Button */}
@@ -70,7 +70,7 @@ const CallToAction = () => {
             onClick={scrollToReservations}
             className="bg-gold text-black hover:bg-gold/90 px-12 py-7 text-sm tracking-[0.2em] uppercase transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]"
           >
-            Reserve Your Table
+            {t.cta.button}
           </Button>
         </div>
 
