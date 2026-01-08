@@ -32,25 +32,25 @@ const Testimonials = () => {
     const nextSlide = () => {
       if (isAnimating) return;
       setIsAnimating(true);
-      setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+      setCurrentIndex((prev) => (prev === t.testimonials.items.length - 1 ? 0 : prev + 1));
       setTimeout(() => setIsAnimating(false), 600);
     };
     const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex, isAnimating]);
+  }, [currentIndex, isAnimating, t.testimonials.items.length]);
 
   const handlePrev = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? t.testimonials.items.length - 1 : prev - 1));
     setTimeout(() => setIsAnimating(false), 600);
   };
 
   const handleNext = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === t.testimonials.items.length - 1 ? 0 : prev + 1));
     setTimeout(() => setIsAnimating(false), 600);
   };
 
