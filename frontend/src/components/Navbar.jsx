@@ -81,13 +81,14 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* CTA Button and Language Switcher */}
+          <div className="hidden lg:flex items-center gap-4">
+            <LanguageSwitcher />
             <Button
               onClick={() => scrollToSection('#reservations')}
               className="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-8 py-6 text-sm tracking-widest uppercase transition-all duration-500"
             >
-              Reserve a Table
+              {t.nav.reserveTable}
             </Button>
           </div>
 
