@@ -248,12 +248,12 @@ const Reservations = () => {
 
               {/* Special Requests */}
               <div>
-                <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">Special Requests</label>
+                <label className="block text-ivory/70 text-sm tracking-wider uppercase mb-2">{t.reservations.form.specialRequests}</label>
                 <Textarea
                   value={formData.requests}
                   onChange={(e) => handleChange('requests', e.target.value)}
                   className="bg-black/50 border-ivory/20 text-ivory placeholder:text-ivory/30 focus:border-gold min-h-[100px]"
-                  placeholder="Dietary requirements, special occasions, seating preferences..."
+                  placeholder={t.reservations.form.requestsPlaceholder}
                 />
               </div>
 
